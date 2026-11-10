@@ -1,0 +1,5 @@
+__pycache__/
+screenshots/
+report.html
+assets/
+.pytest_cache/
