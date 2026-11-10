@@ -40,4 +40,7 @@ def pytest_runtest_makereport(item, call):
     drv = item.funcargs.get("web_driver") or item.funcargs.get("native_driver")
     if drv:
         name = f"{item.name}_{'PASS' if rep.passed else 'FAIL'}_{int(time.time())}.png"
-        drv.save_screenshot(os.path.join(config.SHOTS_DIR, name))
+        try:
+            drv.save_screenshot(os.path.join(config.SHOTS_DIR, name))
+        except Exception as e:  # never let a screenshot crash pytest
+            print(f"screenshot failed: {str(e).splitlines()[0]}")
